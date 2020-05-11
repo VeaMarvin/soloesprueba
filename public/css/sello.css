@@ -1,0 +1,123 @@
+@keyframes tipsy {
+    0 {
+        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    }
+    100% {
+        transform: translateX(-50%) translateY(-50%) rotate(360deg);
+    }
+}
+
+
+.sello {
+    color: black;
+    text-shadow: 0 20px 25px grey, 0 40px 60px #2e2e31;
+    font-size: 70px;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: -3px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.sello:before,
+.sello:after {
+    content: '';
+    padding: .9em .4em;
+    position: absolute;
+    left: 40%;
+    width: 100%;
+    top: 60%;
+    display: block;
+    border: 15px solid red;
+    transform: translateX(-180%) translateY(-60%) rotate(0deg);
+    animation: 10s infinite alternate ease-in-out tipsy;
+}
+
+.sello:before {
+    border-color: #d9524a #d9524a rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    z-index: -1;
+}
+
+.sello:after {
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #d9524a #d9524a;
+    box-shadow: 25px 25px 25px rgba(46, 46, 49, .8);
+}
+
+.footer_nuevo {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color:#a7d1e0;
+    color: black;
+    text-align: justify;
+    padding-top: 10px;
+}
+
+.foto_avatar {
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+    border: 5px solid rgba(255,255,255,.5);
+    border-top-color: rgba(255, 255, 255, 0.5);
+    border-top-style: solid;
+    border-top-width: 5px;
+    border-right-color: rgba(255, 255, 255, 0.5);
+    border-right-style: solid;
+    border-right-width: 5px;
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+    border-left-color: rgba(255, 255, 255, 0.5);
+    border-left-style: solid;
+    border-left-width: 5px;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    vertical-align: middle;
+}
+
+.message_nuevo textarea {
+    font-size: 12px;
+    height: 100%;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+}
+
+.message_nuevo p {
+    color: #696763;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.textbox
+{
+    border: 1px solid black;
+    font-size: 18px;
+    font-family: Arial, Verdana;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    background: #FFFFFF;
+    background: linear-gradient(left, #FFFFFF, #F7F9FA);
+    background: -moz-linear-gradient(left, #FFFFFF, #F7F9FA);
+    background: -webkit-linear-gradient(left, #FFFFFF, #F7F9FA);
+    background: -o-linear-gradient(left, #FFFFFF, #F7F9FA);
+    color: #2E3133;
+}
+
+.textbox:focus
+{
+    color: #2E3133;
+    border-color: #fe980f;
+}
