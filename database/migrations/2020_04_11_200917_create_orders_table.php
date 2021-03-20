@@ -21,12 +21,16 @@ class CreateOrdersTable extends Migration
             $table->string('direction',250);
             $table->string('phone');
             $table->string('status')->default('PEDIDO');
+            $table->string('type_payment')->nullable();
             $table->text('observation')->nullable();
             $table->decimal('total', 10,2)->default(0);
+            $table->boolean('sold')->default(false);
             $table->timestamps();
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+
+            $table->unsignedBigInteger('employee_id')->default(0);
         });
     }
 

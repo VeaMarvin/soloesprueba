@@ -15,13 +15,13 @@
                         <div class="well well-lg"  style="background: #f0f0e9;">
                             <div class="row">
                                 <div class="col-sm-5">
-                                    <div class="view-product">{{--Imagen destacada--}}
+                                    <div id="cambiar_principal" class="view-product">{{--Imagen destacada--}}
                                         @if($producto->images->count() > 0)
                                             @foreach($producto->images->take(1) as $imagen)
-                                                <img src="{{$imagen->photo}}" alt="{{ $imagen->id }}" />
+                                                <img id="image_zoom" class="lazyload" data-src="{{ $imagen->photo }}" alt="{{ $producto->title }}" />
                                             @endforeach
                                         @else
-                                            <img src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAABYBAMAAACDuy0HAAAAG1BMVEXMzMyWlpbFxcWjo6OxsbG+vr6qqqq3t7ecnJwRtUHbAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAdklEQVRIiWNgGAWjYBSMglEwCkYBGUBZWMnQCMZUACJ8ik1UjJ2cYUwDIMKnWIhJUEGRgcGN3QDIFAAiIkzW0FAgwuRAwVBBUQYGljYQMwCIiDCZSZQEN7MZM5Di5gAiTIaGcwowNAiH8ygYBaNgFIyCUTAYAQBzNRHuWxEUOAAAAABJRU5ErkJggg==" alt="photo">
+                                            <img id="image_zoom" class="lazyload" data-src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAABYBAMAAACDuy0HAAAAG1BMVEXMzMyWlpbFxcWjo6OxsbG+vr6qqqq3t7ecnJwRtUHbAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAdklEQVRIiWNgGAWjYBSMglEwCkYBGUBZWMnQCMZUACJ8ik1UjJ2cYUwDIMKnWIhJUEGRgcGN3QDIFAAiIkzW0FAgwuRAwVBBUQYGljYQMwCIiDCZSZQEN7MZM5Di5gAiTIaGcwowNAiH8ygYBaNgFIyCUTAYAQBzNRHuWxEUOAAAAABJRU5ErkJggg==" alt="photo">
                                         @endif
                                     </div>{{--./Imagen destacada--}}
                                     <div id="similar-product" class="carousel slide" data-ride="carousel">{{--Carousel Imagenes--}}
@@ -29,7 +29,7 @@
                                                 @foreach($producto->images->chunk(3) as $bloque_images)
                                                     <div class="item {{$loop->first ? 'active' : ''}}">
                                                         @foreach($bloque_images as $imagen)
-                                                            <a href=""><img src="{{$imagen->photo}}" alt="{{$imagen->id}}" class="img-responsive" style="height:84px;width:71px"></a>
+                                                            <img data-src="{{ $imagen->photo }}" alt="{{ $producto->title }}" class="cambiar_imagen lazyload img-responsive" style="height:84px;width:71px">
                                                         @endforeach
                                                     </div>
                                                 @endforeach

@@ -2,13 +2,14 @@
 
 namespace App;
 
+use Laravel\Cashier\Billable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Billable;
 
     /**
      * The table associated with the model.
@@ -28,7 +29,9 @@ class User extends Authenticatable
         'password',
         'nickname',
         'avatar',
-        'current'
+        'current',
+        'system',
+        'admin'
     ];
 
     /**
@@ -82,5 +85,15 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function credits()
+    {
+        return $this->hasMany(Credit::class);
+    }
+
+    public function request_credits()
+    {
+        return $this->hasMany(RequestCredit::class);
     }
 }

@@ -15,6 +15,7 @@ class CreateBusinessTable extends Migration
     {
         Schema::create('business', function (Blueprint $table) {
             $table->id();
+            $table->string('nit',10)->unique();
             $table->string('name',250);
             $table->string('slogan',250);
             $table->longText('vision');

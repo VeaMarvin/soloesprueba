@@ -31,7 +31,8 @@ class Company extends Model
         'instagram',
         'page',
         'current',
-        'system'
+        'system',
+        'nit'
     ];
 
     /**

@@ -6,17 +6,17 @@
                         <div class="productinfo text-center">
                             @if($producto->images->count() > 0)
                                 @foreach($producto->images->take(1) as $imagen)
-                                    <img src="{{$imagen->photo}}" alt="{{ $imagen->id }}" />
+                                    <img class="lazyload" data-src="{{ $imagen->photo }}" alt="{{ $producto->title }}" />
                                 @endforeach
                             @else
-                                <img src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAABYBAMAAACDuy0HAAAAG1BMVEXMzMyWlpbFxcWjo6OxsbG+vr6qqqq3t7ecnJwRtUHbAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAdklEQVRIiWNgGAWjYBSMglEwCkYBGUBZWMnQCMZUACJ8ik1UjJ2cYUwDIMKnWIhJUEGRgcGN3QDIFAAiIkzW0FAgwuRAwVBBUQYGljYQMwCIiDCZSZQEN7MZM5Di5gAiTIaGcwowNAiH8ygYBaNgFIyCUTAYAQBzNRHuWxEUOAAAAABJRU5ErkJggg==" alt="photo">
+                                <img class="lazyload" data-src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAABYBAMAAACDuy0HAAAAG1BMVEXMzMyWlpbFxcWjo6OxsbG+vr6qqqq3t7ecnJwRtUHbAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAdklEQVRIiWNgGAWjYBSMglEwCkYBGUBZWMnQCMZUACJ8ik1UjJ2cYUwDIMKnWIhJUEGRgcGN3QDIFAAiIkzW0FAgwuRAwVBBUQYGljYQMwCIiDCZSZQEN7MZM5Di5gAiTIaGcwowNAiH8ygYBaNgFIyCUTAYAQBzNRHuWxEUOAAAAABJRU5ErkJggg==" alt="photo">
                             @endif
                             <h2>{{$producto->getStringPriceAttribute()}}</h2>
                             <p>{{$producto->title}}</p>
 
-                            <!-- Botón que hace la magia -->
+                            <!-- Botón que hace la magia 
                             <a href="{{route('carrito.agregar_inmediatamente',['producto' => $producto->id])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Añadir al carro</a>
-
+                            -->
                         </div>
                         <div class="product-overlay">
                             <div class="overlay-content">
@@ -24,7 +24,7 @@
                                 <p>{{$producto->description}}</p>
 
                                 <!-- Botón que hace la magia -->
-                                <a href="{{route('carrito.agregar_inmediatamente',['producto' => $producto->id])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Añadir al carro</a>
+                                <a title="Agregar al carrito" href="{{route('carrito.agregar_inmediatamente',['producto' => $producto->id])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Añadir al carro</a>
 
                             </div>
 
@@ -40,7 +40,7 @@
                         </div>
                 </div>
                 <div class="choose">
-                    <a href="{{route('consulta.detalle',['producto' => $producto->id])}}" class="btn btn-primary btn-block">Ver detalle</a>
+                    <a title="Ver el detalle del producto" href="{{route('consulta.detalle',['producto' => $producto->id])}}" class="btn btn-primary btn-block">Ver detalle</a>
                 </div>
             </div>
         </div>

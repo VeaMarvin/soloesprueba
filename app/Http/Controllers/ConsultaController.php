@@ -7,6 +7,7 @@ use App\Product;
 use App\Category;
 use App\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class ConsultaController extends Controller
@@ -32,11 +33,23 @@ class ConsultaController extends Controller
     */
     public function index()
     {
-        $ofertas = Product::where('offer',true)->get();
-        $productos = Product::with(['images:id,photo,product_id'])->where('current',true)->orderBy('id', 'DESC')->take(6)->get();
+        $ofertas = Product::where('offer', true)->get();
+        $productos = Product::with(['images:id,photo,product_id'])->where('current', true)->orderBy('id', 'DESC')->take(6)->get();
         $categorias = Category::with(['sub_categories:id,name,category_id'])->get();
+        $categorias_random = Category::with(['sub_categories:id,name,category_id'])
+            ->whereExists(
+                function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('sub_categories')
+                        ->join('products', 'sub_categories.id', 'products.sub_category_id')
+                        ->whereRaw('categories.id = sub_categories.category_id');
+                }
+            )
+            ->inRandomOrder()
+            ->limit(5)
+            ->get();
 
-        return view('shop.index', compact('ofertas','productos','categorias'));
+        return view('shop.index', compact('ofertas', 'productos', 'categorias', 'categorias_random'));
     }
 
     /*
@@ -50,10 +63,10 @@ class ConsultaController extends Controller
     */
     public function productos()
     {
-        $productos = Product::where('current',true)->orderBy('id','DESC')->paginate(12);
+        $productos = Product::where('current', true)->orderBy('id', 'DESC')->paginate(12);
         $categorias = Category::with(['sub_categories:id,name,category_id'])->get();
 
-        return view('shop.productos', compact('productos','categorias'));
+        return view('shop.productos', compact('productos', 'categorias'));
     }
 
     /*
@@ -69,7 +82,7 @@ class ConsultaController extends Controller
     {
         $categorias = Category::with(['sub_categories:id,name,category_id'])->get();
 
-        return view('shop.detalle', compact('producto','categorias'));
+        return view('shop.detalle', compact('producto', 'categorias'));
     }
 
     /*
@@ -85,9 +98,9 @@ class ConsultaController extends Controller
     {
         $categorias = Category::with(['sub_categories:id,name,category_id'])->get();
         $nombre_sub_categoria = $sub_categoria->getCategoryAttribute();
-        $productos = Product::where('sub_category_id',$sub_categoria->id)->where('current',true)->orderBy('id','DESC')->paginate(12);
+        $productos = Product::where('sub_category_id', $sub_categoria->id)->where('current', true)->orderBy('id', 'DESC')->paginate(12);
 
-        return view('shop.sub_categoria', compact('categorias','nombre_sub_categoria','productos'));
+        return view('shop.sub_categoria', compact('categorias', 'nombre_sub_categoria', 'productos'));
     }
 
     /*
@@ -101,7 +114,7 @@ class ConsultaController extends Controller
     */
     public function buscar(Request $request)
     {
-        $productos = Product::search($request->search)->where('current',true)->paginate(10);
+        $productos = Product::search($request->search)->where('current', true)->paginate(10);
 
         return view('shop.buscar', compact('productos'));
     }
@@ -119,15 +132,14 @@ class ConsultaController extends Controller
     {
         $empresa = Company::where('current', true)->first();
 
-        if(is_null($empresa))
-        {
+        if (is_null($empresa)) {
             $notificacion = array(
                 'message' => 'No hay información de la empresa.',
                 'alert-type' => 'info'
             );
 
             return Redirect::route('consulta.index')
-                            ->with($notificacion);
+                ->with($notificacion);
         }
 
         return view('shop.empresa', compact('empresa'));

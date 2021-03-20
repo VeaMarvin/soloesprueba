@@ -19,7 +19,7 @@
                                     <li>
                                         <i class="fa fa-angle-right"></i>
                                         <a href="{{route('consulta.sub_categoria',['sub_categoria' => $sub_categoria->id])}}">{{$sub_categoria->name}}</a>
-                                        <span class="label label-primary pull-right">{{ $sub_categoria->products->count() }}</span>
+                                        <span class="label label-primary pull-right">{{ $sub_categoria->products->where('current', 1)->count() }}</span>
                                     </li>
                                 @empty
                                     No hay sub categorías

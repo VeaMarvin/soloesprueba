@@ -35,13 +35,20 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li>
-                                <!-- Falta agregar la ruta del carrito -->
+                                <a href="#" data-toggle="modal" data-target="#myModal">
+                                    <i class="fa fa-calculator"></i>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{route('carrito.index')}}">
                                     <i class="fa fa-shopping-cart"></i>
                                     Carro <span class="badge">{{Session::has('cart') ? Session::get('cart')->agragados_al_carrito : '0'}}</span>
                                 </a>
                             </li>
                             @if(Auth::check())
+                                <li>
+                                    <a href="{{route('credito.create')}}">Aplicar crédito</a>
+                                </li>
                                 <li class="dropdown">
                                     <a href="#!" class="dropdown-toggle">
                                         <span class="glyphicon glyphicon-user"></span>
@@ -63,6 +70,7 @@
                                                         <p class="text-left small">{!! Auth::user()->nickname !!}</p>
                                                         <p class="text-center">
                                                             <a href="{{route('user.perfil')}}" class="btn btn-info btn-block">Compras realizadas</a>
+                                                            <a href="{{route('credito.index')}}" class="btn btn-success btn-block">Créditos</a>
                                                             <a href="{{route('user.logout')}}" class="btn btn-danger btn-block">Cerrar sesión <span class="glyphicon glyphicon-log-out"></span></a>
                                                         </p>
                                                     </div>
@@ -71,7 +79,6 @@
                                         </li>
                                     </ul>
                                 </li>
-
                             @else
                                 <li><a href="{{ route('user.login') }}"><i class="fa fa-lock"></i> Iniciar Sesión</a></li>
                             @endif
@@ -81,6 +88,40 @@
             </div>
         </div>
     </div>{{-- ./Header medio --}}
+
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog md">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Calculadora</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="calculadora">
+                    <tr>
+                    <td colspan="4"><span id="resultado"></span></td>
+                    </tr>
+                    <tr>
+                    <td><button id="siete">7</button></td><td><button id="ocho">8</button></td><td><button id="nueve">9</button></td><td><button id="division">/</button></td>
+                    </tr>
+                    <tr>
+                    <td><button id="cuatro">4</button></td><td><button id="cinco">5</button></td><td><button id="seis">6</button></td><td><button id="multiplicacion">*</button></td>
+                    </tr>
+                    <tr>
+                    <td><button id="uno">1</button></td><td><button id="dos">2</button></td><td><button id="tres">3</button></td><td><button id="resta">-</button></td>
+                    </tr>
+                    <tr>
+                    <td><button id="igual">=</button></td><td><button id="reset">C</button></td><td><button id="cero">0</button></td><td><button id="suma">+</button></td>
+                    </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <div class="header-bottom">{{-- Header inferior --}}
         <div class="container">

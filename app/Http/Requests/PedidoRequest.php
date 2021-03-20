@@ -29,7 +29,8 @@ class PedidoRequest extends FormRequest
             'email' => 'required|email|max:100',
             'direction' => 'required|max:150',
             'phone' => 'required|integer|digits:8',
-            'observation' => 'nullable|max:150'
+            'observation' => 'nullable|max:150',
+            'credit_id' => 'starts_with:on'
         ];
     }
 
@@ -59,7 +60,9 @@ class PedidoRequest extends FormRequest
             'phone.digits' => 'El número de teléfono debe contener :digits dígitos.',
             'phone.integer' => 'El número de teléfono debe de ser números enteros.',
 
-            'observation.max'  => 'La observación no debe tener más de :max caracteres.'
+            'observation.max'  => 'La observación no debe tener más de :max caracteres.',
+
+            'credit_id.starts_with'  => 'El check del crédito tiene formato incorrecto.'
         ];
     }
 }

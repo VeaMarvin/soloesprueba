@@ -9,7 +9,7 @@
 				  <li class="pull-right"><a href="{{route('user.perfil')}}">Regresar al listado de pedidos</a></li>
 				</ol>
             </div>
-            <h2>Detalle del Pedido #<strong>{{ $pedido->id }}</strong></h2>
+            <h2>Detalle del Pedido #<strong>{{ $pedido->id }}</strong> ({{ $pedido->type_payment }})</h2>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="shopper-info">
@@ -70,7 +70,8 @@
                                 <td class="text-left">{{ $detalle->product }}</td>
                                 <td class="text-right">{{ $detalle->price }}</td>
                                 <td class="text-right">{{ $detalle->getStringDiscountAttribute() }}</td>
-                                <td class="text-right"><strong>{{ $detalle->getStringSubTotalAttribute() }}</strong></td>                            </tr>
+                                <td class="text-right"><strong>{{ $detalle->getStringSubTotalAttribute() }}</strong></td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -82,7 +83,12 @@
 		<div class="container">
 			<div class="heading">
 				<h3>Datos del pedido</h3>
-				<p>En este apartada se detalle el total a cancelar del pedido #<strong>{{ $pedido->id }}</strong>.</p>
+                <p>En este apartada se detalle el total a cancelar del pedido #<strong>{{ $pedido->id }}</strong>.</p>
+                @if ($pedido->sold)
+                    <a href="#" class="btn btn-sm btn-success">Pagado</a>
+                @else
+                    <a href="#" class="btn btn-sm btn-danger">No Pagado</a>
+                @endif
 			</div>
 			<div class="row">
 				<div class="col-sm-6">

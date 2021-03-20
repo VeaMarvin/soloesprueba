@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('perfil', 'UsuarioController@perfil')->name('perfil');
         Route::get('perfil/pedido/{numero}/detalle', 'UsuarioController@detalle_pedido')->name('detalle_pedido');
         Route::get('logout', 'UsuarioController@logout')->name('logout');
+        Route::get('perfil/pedido/{numero}/pdf', 'UsuarioController@pdf')->name('pdf');
     });
 });
 
@@ -91,5 +92,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::name('pedido.')->group(function () {
         Route::get('pedido', 'PedidoController@index')->name('index');
         Route::post('realizar/pedido', 'PedidoController@realizar')->name('realizar');
+    });
+});
+
+
+//Declaramos rutas para registrar pedido
+/* ::::::::::::::::: ESTAS RUTAS NECESITA QUE EL USUARIO ESTE LOGUEADO :::::::::::: */
+Route::group(['middleware' => ['auth']], function () {
+    Route::name('credito.')->group(function () {
+        Route::get('credito', 'CreditController@index')->name('index');
+        Route::get('credito/create', 'CreditController@create')->name('create');
+        Route::post('credito/store', 'CreditController@store')->name('store');
+        Route::get('credito/pagar/{credito}', 'CreditController@pagar')->name('pagar');
     });
 });

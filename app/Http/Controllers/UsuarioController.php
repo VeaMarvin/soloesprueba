@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
+use App\Credit;
 use App\Detail;
 use App\User;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UsuarioRequest;
 use App\Order;
+use App\RequestCredit;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class UsuarioController extends Controller
 {
@@ -159,5 +163,21 @@ class UsuarioController extends Controller
     {
         Auth::logout();
         return Redirect::route('consulta.index');
+    }
+
+    public function pdf($numero)
+    {
+        $tipo_credito = null;
+        $pedido = Order::find($numero);
+        $detalles = Detail::where('order_id', $pedido->id)->get();
+        if($pedido->status == Order::CREDITO)
+        {
+            $credito = RequestCredit::where('order_id', $pedido->id)->first();
+            $tipo_credito = Credit::find($credito->credit_id);
+        }
+        $company = Company::find(1);
+
+        $pdf = PDF::loadView('pdf.factura', compact('pedido','detalles','company','credito','tipo_credito'));
+        return $pdf->stream('factura.pdf');
     }
 }

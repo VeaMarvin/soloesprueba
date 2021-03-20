@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('nickname')->nullable();
             $table->longText('avatar');
+            $table->boolean('admin')->default(false);
             $table->boolean('current')->default(true);
             $table->boolean('system')->default(false);
             $table->rememberToken();

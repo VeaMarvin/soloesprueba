@@ -7,8 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     //Constantes
+    const CONTADO = 'CONTADO';
+    const CREDITO = 'CREDITO';
+
     const PEDIDO = 'PEDIDO';
     const PROCESO = 'PROCESO';
+    const FACTURADO = 'FACTURADO';
     const ENTREGADO = 'ENTREGADO';
     const ANULADO = 'ANULADO';
 
@@ -33,7 +37,10 @@ class Order extends Model
         'status',
         'observation',
         'total',
-        'user_id'
+        'user_id',
+        'employee_id',
+        'type_payment',
+        'sold'
     ];
 
     /**
@@ -79,6 +86,9 @@ class Order extends Model
             case Order::PROCESO:
                 $color = "success";
                 break;
+            case Order::FACTURADO:
+                $color = "info";
+                break;
             case Order::ENTREGADO:
                 $color = "warning";
                 break;
@@ -102,5 +112,10 @@ class Order extends Model
     public function details()
     {
         return $this->hasMany(Detail::class);
+    }
+
+    public function traicings()
+    {
+        return $this->hasMany(Traicing::class);
     }
 }

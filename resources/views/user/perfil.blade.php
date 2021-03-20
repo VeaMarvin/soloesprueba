@@ -46,7 +46,13 @@
                                 <td class="text-left">{{ $pedido->direction }}</td>
                                 <td class="text-right"><strong>{{ $pedido->getStringTotalAttribute() }}</strong></td>
                                 <td class="text-center">{{ $pedido->getStringFechaAttribute() }}</td>
-                                <td class="text-center"><span class="{{ 'label label-'.$pedido->getStringColorAttribute() }}">{{ $pedido->status }}</span></td>
+                                <td class="text-center">
+                                    @if ($pedido->status == 'FACTURADO')
+                                        <a href="{{route('user.pdf',['numero' => $pedido->id])}}" class="btn btn-sm btn-{{ $pedido->getStringColorAttribute() }}">{{ $pedido->status }}</a>
+                                    @else
+                                        <span class="{{ 'label label-'.$pedido->getStringColorAttribute() }}">{{ $pedido->status }}</span>
+                                    @endif
+                                </td>
                                 <td class="text-center"><a href="{{route('user.detalle_pedido',['numero' => $pedido->id])}}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a></td>
                             </tr>
                         @endforeach
@@ -58,5 +64,6 @@
             </ul>
         </div>
     </div>
+    <br><br><br>
 </div>
 @endsection
